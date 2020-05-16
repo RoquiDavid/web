@@ -143,15 +143,14 @@ public class UserServices {
 	 * @throws JSONException
 	 *             that shouldn't happen
 	 */
-	public static JSONObject blockUser(String key,String loginCurrentUser, String loginBlockUser) throws JSONException {
+	public static JSONObject blockUser(String key, String loginBlockUser) throws JSONException {
 		Connection c = null;
 		try {
 			c = Database.getMySQLConnection();
-			if (key == null || loginCurrentUser == null || loginBlockUser == null) {
+			if (key == null  || loginBlockUser == null) {
 				return ErrorJSON.serviceRefused("Null key or login user or login which will be blocked", DBStatic.empty_field_error);
 			}
-			if (!(UserTools.existUser(loginCurrentUser, c)))
-				return ErrorJSON.serviceRefused("the user doesn't exist", DBStatic.not_in_db_error);
+			
 			//On vérifie que la clé de l'utilisateur existe
 			if(!AuthentificationTools.existKey(key,c))
 				return ErrorJSON.serviceRefused("the key doesn't exist", 12);
@@ -163,8 +162,9 @@ public class UserServices {
 			
 			AuthentificationTools.updateSession(key);
 			
+			
 			//Récupère le id des utilisateurs concernés
-			int idCurrentUser = UserTools.getUserId(loginCurrentUser, c);
+			int idCurrentUser = UserTools.getUserIdFromKey(key, c);
 			int idBlockUser = UserTools.getUserId(loginBlockUser, c);
 			boolean alreadyBlocked = false;
 			ArrayList<Integer> idBlockedUser = new ArrayList<Integer>();
@@ -227,21 +227,14 @@ public class UserServices {
 
 	}
 	
-	/**
-	 * return a JSONObject that contains the login of all user of the website
-	 * 
-	 * @return a JSONObject that contains the login of all user of the website
-	 * @throws JSONException
-	 *             that shouldn't happen
-	 */
-	public static JSONObject getUserBlockList(String key,String login,int idUser) throws JSONException {
+
+	public static JSONObject getUserBlockList(String key) throws JSONException {
 		ArrayList<Integer> users = new ArrayList<Integer>();
 		Connection c = null;
 		try {
 			c = Database.getMySQLConnection();
-			if (idUser != 0) {
-				return ErrorJSON.serviceRefused("Null id", DBStatic.empty_field_error);
-			}
+			int idUser = UserTools.getUserIdFromKey(key, c);
+			
 			if(!AuthentificationTools.existKey(key,c))
 				return ErrorJSON.serviceRefused("the key doesn't exist", 12);
 			
@@ -251,10 +244,10 @@ public class UserServices {
 			}
 			
 			AuthentificationTools.updateSession(key);
-			boolean existUser = UserTools.existUser(login, c);
-			if(existUser) {
+			//boolean existUser = UserTools.existUser(login, c);
+			//if(existUser) {
 				users = UserTools.getBlockedUsers(idUser, c);
-			}
+			//}
 			
 			return ErrorJSON.serviceAccepted("user list", users);
 		} catch (SQLException e) {

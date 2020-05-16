@@ -57,7 +57,7 @@ public class TestMessageServices {
 			
 			
 			/* L' utilisateur Gabriel bloque l'utilisateur Davi ce qui fait qu'ils ne peuvent respictivement plus voir leurs messages*/
-			JSONObject block = UserServices.blockUser(key,"Gabriel", "DAVID");
+			JSONObject block = UserServices.blockUser(key, "DAVID");
 			System.out.println("Result block: "+ block);
 			/* Résultat lorsqu'une user veut voir les message d'un autre user qu'il a bloqué*/
 			JSONObject jsonGetMessageBlock = MessageServices.getMessage(key, jsonPostCreateMessage2.getString("mid"), 1,7);
@@ -82,12 +82,12 @@ public class TestMessageServices {
 			
 			
 			/* Deuxième test pour les bloquages*/
-			JSONObject block2 = UserServices.blockUser(key3,"Quentin", "Jeremy");
+			JSONObject block2 = UserServices.blockUser(key3, "Jeremy");
 			System.out.println("Result block: "+ block2);
 			JSONObject jsonGetMessage6 = MessageServices.getMessage(key3, jsonPostCreateMessage5.getString("mid"), 8,9);
 			System.out.println("resulat post blocage 2 "+jsonGetMessage6);
 			/* Test de redondance pour le bloquage*/
-			JSONObject block3 = UserServices.blockUser(key3,"Quentin", "Jeremy");
+			JSONObject block3 = UserServices.blockUser(key3, "Jeremy");
 			System.out.println("redon block "+block3);
 			
 			

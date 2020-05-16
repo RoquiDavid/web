@@ -79,7 +79,7 @@ public class Message extends HttpServlet {
 			}
 			if(mid == null) {
 				int id = Integer.parseInt(idUsercible);
-				JSONObject json = MessageServices.createMessage(idUsercible, login, key, content);
+				JSONObject json = MessageServices.createMessage(id, login, key, content);
 				print(json, response);
 			}
 			/* Code to change : access to service */
