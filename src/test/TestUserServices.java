@@ -25,7 +25,6 @@ public class TestUserServices {
 			System.out.println("L'utilisateur affiche ses informations personnelles");
 			System.out.println(UserServices.getUser(login));
 			/* L'utilisateur cherche tout les utilisateurs du site */
-			
 			JSONObject jsonGetAll = UserServices.getUserList();
 			/* L'utilisateur se login */
 			JSONObject o = AuthentificationServices.login(login, password);
