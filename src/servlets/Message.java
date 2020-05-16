@@ -78,6 +78,7 @@ public class Message extends HttpServlet {
 				print(jsonPostLike,response);
 			}
 			if(mid == null) {
+				int id = Integer.parseInt(idUsercible);
 				JSONObject json = MessageServices.createMessage(idUsercible, login, key, content);
 				print(json, response);
 			}
