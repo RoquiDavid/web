@@ -3,12 +3,15 @@ package test;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import bd.LoadDataBase;
 import services.AuthentificationServices;
 import services.UserServices;
 
 public class TestUserServices {
 	public static void main(String[] args) {
 		try {
+			
+			LoadDataBase.loadSQLDataBase();
 			
 			/* Renseigne les parmètres du service*/
 			String login = "Gabriel1254";
@@ -25,17 +28,19 @@ public class TestUserServices {
 			System.out.println("L'utilisateur affiche ses informations personnelles");
 			System.out.println(UserServices.getUser(login));
 			/* L'utilisateur cherche tout les utilisateurs du site */
-			JSONObject jsonGetAll = UserServices.getUserList();
+			System.out.println("L'utilisateur récupère la liste de tout les utilisateurs");
+			System.out.println(UserServices.getUserList());
 			/* L'utilisateur se login */
-			JSONObject o = AuthentificationServices.login(login, password);
+			System.out.println("L'utilisateur se connecte");
 			/* L'utilisateur récupère sa clef de sessoin */
-			System.out.println(o.get("key"));
+			JSONObject o = AuthentificationServices.login(login, password);
+			System.out.println(o);
 			/* L'utilisateur supprime son compte */
-			JSONObject jsonDelete = UserServices.deleteUser(o.getString("key")+"srfez");
+			System.out.println("L'utilisateur supprime son compte");
+			System.out.println(UserServices.deleteUser(o.getString("key")));
 			
 			
-			System.out.println("Results for jsonGetAll :" + jsonGetAll);
-			System.out.println("Results for jsonDelete :" + jsonDelete);
+		
 			
 			
 			
