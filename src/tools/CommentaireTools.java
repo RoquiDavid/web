@@ -7,7 +7,6 @@ import java.util.GregorianCalendar;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import org.json.JSONObject;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -21,6 +20,7 @@ public class CommentaireTools {
 	 * @param coll the collection the message is in
 	 * @return the id of the comment generated
 	 */
+	@SuppressWarnings("unchecked")
 	public static String createCommentaire(ObjectId message_id, Integer author_id, String author_login,String comment, MongoCollection<Document> coll) {
 		ArrayList<Document> comments = null;
 		/*Récupération des anciens commentaires*/
@@ -66,6 +66,7 @@ public class CommentaireTools {
 	 * @param coll
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public static boolean existCommentaire(ObjectId message_id, String c_id, MongoCollection<Document> coll) {
 		Document query = new Document();
 		query.append("_id", message_id);
@@ -90,6 +91,7 @@ public class CommentaireTools {
 	 * @param coll
 	 * @param new_comment
 	 */
+	@SuppressWarnings("unchecked")
 	public static void modifyCommentaire(ObjectId message_id, String c_id, MongoCollection<Document> coll, String new_comment) {
 		ArrayList<Document> comments = null;
 		/*Récupération des anciens commentaires*/
@@ -131,6 +133,7 @@ public class CommentaireTools {
 	 * @param c_id
 	 * @param coll
 	 */
+	@SuppressWarnings("unchecked")
 	public static void deleteCommentaire(ObjectId message_id, String c_id, MongoCollection<Document> coll) {
 		ArrayList<Document> comments = null;
 		/*Récupération des anciens commentaires*/
@@ -173,6 +176,7 @@ public class CommentaireTools {
 	 * @param coll
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public static Document getCommentaire(ObjectId message_id, String c_id, MongoCollection<Document> coll) {
 		Document comment = null;
 		ArrayList<Document> comments = null;
@@ -209,8 +213,9 @@ public class CommentaireTools {
 	 * @param coll
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public static ArrayList<String> getCommentList(ObjectId message_id, MongoCollection<Document> coll) {
-		Document comment = null;
+		//Document comment = null;
 		ArrayList<Document> comments = null;
 		/*Récupération des anciens commentaires*/
 			//Récupération du message

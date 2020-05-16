@@ -12,13 +12,10 @@ import org.json.JSONObject;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.result.UpdateResult;
 
-import bd.DBStatic;
 import bd.Database;
 import tools.AuthentificationTools;
 import tools.ErrorJSON;
-import tools.FriendTools;
 import tools.MessageTools;
 import tools.UserTools;
 
@@ -42,7 +39,7 @@ public class MessageServices {
 	 * @throws JSONException
 	 *             that shouldn't happen
 	 */
-	public static JSONObject getMessage(String key, String mid, int idUser, int idUsercible) throws JSONException {
+	public static JSONObject getMessage(String key, String mid, int idUsercible) throws JSONException {
 		Connection c = null;
 		try {
 			// Get the mongo connection
@@ -50,7 +47,7 @@ public class MessageServices {
 			MongoDatabase db = Database.getMongoDBConnection();
 			MongoCollection<Document> coll = db.getCollection("message");
 			//On vérifie si les arguments ne sont pas null
-			if (key == null || mid == null || idUser == 0 || idUsercible == 0)
+			if (key == null || mid == null || idUsercible == 0)
 				return ErrorJSON.serviceRefused("key or mid or id user or id user targeted field empty", -1);
 			//On vérifie que la clé de l'utilisateur existe
 			if(!AuthentificationTools.existKey(key,c))
@@ -77,6 +74,7 @@ public class MessageServices {
 			AuthentificationTools.updateSession(key);
 			
 			boolean isBlocked = false;
+			int idUser = UserTools.getUserIdFromKey(key, c);
 			//On vérifie si les utilisateur sont bloqués
 			ArrayList<Integer> blockedUsers = UserTools.getBlockedUsers(idUser, c);
 			if(!blockedUsers.isEmpty()) {
@@ -191,14 +189,14 @@ public class MessageServices {
 	 * @throws JSONException
 	 *             that shouldn't happen
 	 */
-	public static JSONObject createMessage(int idUser, String authorNameString, String key, String content) throws JSONException {
+	public static JSONObject createMessage(String key, String content) throws JSONException {
 		Connection c = null;
 		String mid;
 		try {
 			c = Database.getMySQLConnection();
 			MongoDatabase db = Database.getMongoDBConnection();
 			MongoCollection<Document> coll = db.getCollection("message");
-			if (key == null || authorNameString == null || key == null || content == null)
+			if (key == null ||  key == null || content == null)
 				return ErrorJSON.serviceRefused("key or mid  field empty", -1);
 
 			if(!AuthentificationTools.existKey(key,c))
@@ -256,7 +254,7 @@ public class MessageServices {
 	 * @throws JSONException
 	 *             that shouldn't happen
 	 */
-	public static JSONObject update(String key, String mid, String content, int idUser) throws JSONException {
+	public static JSONObject update(String key, String mid, String content) throws JSONException {
 		Connection c = null;
 		try {
 			c = Database.getMySQLConnection();
@@ -280,6 +278,7 @@ public class MessageServices {
 				MessageTools.deleteMessage(message_id, coll);
 			}
 			AuthentificationTools.updateSession(key);
+			int idUser = UserTools.getUserIdFromKey(key, c);
 			System.out.println("message id update  "+message_id+ "    "+idUser);
 			if(MessageTools.verif(message_id,idUser,coll)) {
 				System.out.println("enter 1111111111111111");
@@ -323,7 +322,7 @@ public class MessageServices {
 	 * @throws JSONException
 	 *             that shouldn't happen
 	 */
-	public static JSONObject deleteMessage(String key, String mid, int idUser) throws JSONException {
+	public static JSONObject deleteMessage(String key, String mid) throws JSONException {
 		Connection c = null;
 		try {
 			c = Database.getMySQLConnection();
@@ -342,7 +341,7 @@ public class MessageServices {
 			
 			AuthentificationTools.updateSession(key);
 			ObjectId message_id = new ObjectId(mid);
-			
+			int idUser = UserTools.getUserIdFromKey(key, c);
 			if(MessageTools.verif(message_id, idUser,coll)) {
 				MessageTools.deleteMessage(message_id, coll);
 			}

@@ -12,7 +12,6 @@ import bd.DBStatic;
 import bd.Database;
 import tools.AuthentificationTools;
 import tools.ErrorJSON;
-import tools.MessageTools;
 import tools.UserTools;
 
 public class UserServices {

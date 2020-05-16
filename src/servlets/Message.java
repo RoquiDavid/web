@@ -14,7 +14,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import services.MessageServices;
-import services.UserServices;
 
 /**
  * Servlet implementation class Message
@@ -41,7 +40,7 @@ public class Message extends HttpServlet {
 				json.append("res", "null");
 				return;
 			} else {
-				json = MessageServices.getMessage(arrayUrl[0], arrayUrl[1],Integer.parseInt(arrayUrl[2]), Integer.parseInt(arrayUrl[3]));
+				json = MessageServices.getMessage(arrayUrl[0], arrayUrl[1], Integer.parseInt(arrayUrl[3]));
 				jsonLike = MessageServices.getLike(arrayUrl[0], arrayUrl[1],Integer.parseInt(arrayUrl[2]));
 			}
 			json.put("url", url);
@@ -64,7 +63,7 @@ public class Message extends HttpServlet {
 		/* Access to parameter */
 
 		String key = request.getParameter("key");
-		String login = request.getParameter("login");
+		//String login = request.getParameter("login");
 
 		String mid = request.getParameter("mid");
 
@@ -78,8 +77,8 @@ public class Message extends HttpServlet {
 				print(jsonPostLike,response);
 			}
 			if(mid == null) {
-				int id = Integer.parseInt(idUsercible);
-				JSONObject json = MessageServices.createMessage(id, login, key, content);
+				//int id = Integer.parseInt(idUsercible);
+				JSONObject json = MessageServices.createMessage( key, content);
 				print(json, response);
 			}
 			/* Code to change : access to service */
@@ -102,13 +101,13 @@ public class Message extends HttpServlet {
 		
 		String key = request.getParameter("key");
 		String mid = request.getParameter("mid");
-		String idUser = request.getParameter("idUser");
+		
 		String content = request.getParameter("content");
 
 		try {
 
 			/* Code to change : access to service */
-			JSONObject json = MessageServices.update(key, mid, content ,Integer.parseInt(idUser));
+			JSONObject json = MessageServices.update(key, mid, content );
 
 			/* print the output in the response */
 			print(json, response);
@@ -127,9 +126,9 @@ public class Message extends HttpServlet {
 			//Need the key session of the user and the id of the message to delete the message
 			String key = request.getParameter("key");
 			String mid = request.getParameter("mid");
-			String idUser = request.getParameter("idUser");
+			//String idUser = request.getParameter("idUser");
 			/* Code to change : access to service */
-			JSONObject json = MessageServices.deleteMessage(key, mid, Integer.parseInt(idUser));
+			JSONObject json = MessageServices.deleteMessage(key, mid);
 
 			/* print the output in the response */
 			print(json, response);

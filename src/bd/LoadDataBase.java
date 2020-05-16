@@ -14,15 +14,10 @@ import java.util.GregorianCalendar;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
-import com.sun.tools.javac.util.List;
 
 public class LoadDataBase {
 

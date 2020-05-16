@@ -11,6 +11,7 @@ import services.CommentaireService;
 import services.MessageServices;
 
 public class TestCommentaire {
+	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
 		LoadDataBase.loadSQLDataBase();
 		LoadDataBase.loadMongoDataBase();
@@ -19,7 +20,7 @@ public class TestCommentaire {
 		try {
 			String key = AuthentificationServices.login("Pilan12", "251efzfe").getString("key");
 			System.out.println("Le client est connecté avec la clé de session : " + key);
-			String m_id = MessageServices.createMessage(2, "Pilan12", key, "BOnjour").getString("mid");
+			String m_id = MessageServices.createMessage(key, "BOnjour").getString("mid");
 			String c_id = CommentaireService.createCommentaire(key, m_id, "Nouveau commentaire").getString("c_id");
 			System.out.println("Le commentaire " + c_id + " a été crée");
 			String c_id2 = CommentaireService.createCommentaire(key, m_id, "Nouveau commentaire numéro 2").getString("c_id");
