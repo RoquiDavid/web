@@ -106,9 +106,10 @@ public class LoadDataBase {
 		//creation of the table message
 		MongoCollection<Document> coll = db.getCollection("message");
 		
+		//Creation of the first message
 		Document doc = new Document();
 		doc.append("author_id", 1);
-		doc.append("author_name", "toto");
+		doc.append("author_name", "Arinha201");
 		doc.append("contenu", "Je suis en pleine forme aujourd'hui !!");
 		GregorianCalendar calendar = new GregorianCalendar();
 		Date date = calendar.getTime();
@@ -118,45 +119,44 @@ public class LoadDataBase {
 		
 		Document doc2 = new Document();
 		doc2.append("author_id", 3);
-		doc2.append("author_name", "oui-oui");
+		doc2.append("author_name", "Kina511");
 		doc2.append("contenu", "Coucou !!");
 		GregorianCalendar calendar2 = new GregorianCalendar();
 		Date date2 = calendar2.getTime();
 		doc2.append("date", date2);
-		doc.append("likes", 0);
-		
+		doc2.append("likes", 0);
+		coll.insertOne(doc2);
 		
 		Document doc3 = new Document();
 		doc3.append("author_id", 4);
-		doc3.append("author_name", "birdy");
+		doc3.append("author_name", "Boulash");
 		doc3.append("contenu", "je suis un utilisateur !!");
 		GregorianCalendar calendar3 = new GregorianCalendar();
 		Date date3 = calendar3.getTime();
 		doc3.append("date", date3);
-		doc.append("likes", 0);
-		
+		doc3.append("likes", 0);
+		coll.insertOne(doc3);
 		
 		//the comments of the message
 		ArrayList<Document> comments = new ArrayList<>();
 		Document doc1 = new Document();
 		doc1.append("author_id", 1);
-		doc1.append("author_name", "toto");
+		doc1.append("author_name", "Arinha201");
 		doc1.append("text", "Excellent ! Bonne journée!!");
 		doc1.append("date", date);
 		comments.add(doc1);
 		
 		Document doc4 = new Document();
 		doc4.append("author_id", 1);
-		doc4.append("author_name", "toto");
+		doc4.append("author_name", "Arinha201");
 		doc4.append("text", "Excellent ! Bonne journée!!");
 		doc4.append("date", date);
 		comments.add(doc4);
 		
 		//inserting the comments in the message
-		Document doc33 = new Document();
-		doc33.append("comments", comments);
-		coll.insertOne(doc33);
-		ObjectId id = doc33.getObjectId("_id");
+		doc.append("comments", comments);
+		coll.insertOne(doc);
+		ObjectId id = doc.getObjectId("_id");
 		
 		
 		Document query = new Document("author_id", 1);
@@ -169,7 +169,7 @@ public class LoadDataBase {
 		
 		MongoCursor<Document> cursor = coll.find(query).projection(proj).iterator();
 		while(cursor.hasNext()) {
-			System.out.println(cursor.next().get("text"));
+			System.out.println(cursor.next().get("contenu"));
 		}
 		cursor.close();
 		
