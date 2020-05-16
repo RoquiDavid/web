@@ -129,7 +129,7 @@ public class MessageTools{
 	 */
 	public static String createMessage(int authorId, String authorName,String content, MongoCollection<Document> coll) {
 		Document doc = new Document();
-
+		ArrayList<Document> comments = new ArrayList<Document>();
 		doc.append("author_id", authorId);
 		doc.append("author_name", authorName);
 		GregorianCalendar calendar = new GregorianCalendar();
@@ -137,7 +137,7 @@ public class MessageTools{
 		doc.append("date", date);
 		doc.append("contenu", content);
 		doc.append("likes", 0);
-		
+		doc.append("comments", comments);
 		coll.insertOne(doc);
 		return doc.getObjectId("_id").toHexString();
 	}

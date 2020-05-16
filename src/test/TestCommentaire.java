@@ -8,15 +8,17 @@ import org.json.JSONObject;
 import bd.LoadDataBase;
 import services.AuthentificationServices;
 import services.CommentaireService;
+import services.MessageServices;
 
 public class TestCommentaire {
 	public static void main(String[] args) {
 		LoadDataBase.loadSQLDataBase();
-		String m_id = LoadDataBase.loadMongoDataBase();
+		LoadDataBase.loadMongoDataBase();
 		
-		//String m_id = "5e5947e8f0c0c91310fca535";
+		
 		try {
 			String key = AuthentificationServices.login("Pilan12", "251efzfe").getString("key");
+			String m_id = MessageServices.createMessage(2, "Pilan12", key, "BOnjour").getString("mid");
 			System.out.println("Le client est connecté avec la clé de session : " + key);
 			String c_id = CommentaireService.createCommentaire(key, m_id, "Nouveau commentaire").getString("c_id");
 			System.out.println("Le commentaire " + c_id + " a été crée");
