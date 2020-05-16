@@ -17,12 +17,15 @@ public class TestUserServices {
 			String prenom = "Gabriel";
 			
 			/* Création d'un utilisateur */
-			JSONObject jsonPost = UserServices.createUser(login, password, nom, prenom);
+			System.out.println("L'utilisateur se crée un compte");
+			System.out.println(UserServices.createUser(login, password, nom, prenom));
 			
 			
 			/* L'utisateur cherche les informations liés à son compte */
-			JSONObject jsonGet = UserServices.getUser(login);
+			System.out.println("L'utilisateur affiche ses informations personnelles");
+			System.out.println(UserServices.getUser(login));
 			/* L'utilisateur cherche tout les utilisateurs du site */
+			
 			JSONObject jsonGetAll = UserServices.getUserList();
 			/* L'utilisateur se login */
 			JSONObject o = AuthentificationServices.login(login, password);
@@ -31,8 +34,7 @@ public class TestUserServices {
 			/* L'utilisateur supprime son compte */
 			JSONObject jsonDelete = UserServices.deleteUser(o.getString("key")+"srfez");
 			
-			System.out.println("Results for jsonPost :" + jsonPost);
-			System.out.println("Results for jsonGet :" + jsonGet);
+			
 			System.out.println("Results for jsonGetAll :" + jsonGetAll);
 			System.out.println("Results for jsonDelete :" + jsonDelete);
 			
