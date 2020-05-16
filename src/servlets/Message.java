@@ -72,14 +72,21 @@ public class Message extends HttpServlet {
 		String content = request.getParameter("content");
 
 		try {
-
+			
+			if(mid != null) {
+				JSONObject jsonPostLike = MessageServices.like(key, mid, Integer.parseInt(idUsercible));
+				print(jsonPostLike,response);
+			}
+			if(mid == null) {
+				JSONObject json = MessageServices.createMessage(idUsercible, login, key, content);
+				print(json, response);
+			}
 			/* Code to change : access to service */
-			JSONObject json = MessageServices.createMessage(0, login, key, content);
-			JSONObject jsonPostLike = MessageServices.like(key, mid, Integer.parseInt(idUsercible));
-
+			
+			
 			/* print the output in the response */
-			print(json, response);
-			print(jsonPostLike,response);
+			
+			
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
