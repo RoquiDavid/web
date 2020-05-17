@@ -42,17 +42,10 @@ public class UserServices {
 			UserTools.insertUser(login, password, nom, prenom, c);
 
 			return ErrorJSON.serviceAccepted("message", "the user has been successfully created");
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("database exception", DBStatic.sql_error);
+		} catch (Exception e) {
+			return ErrorJSON.exceptionHandler(e);
 		} finally {
-			try {
-				c.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return ErrorJSON.serviceRefused("database exception", DBStatic.sql_error);
-
-			}
+			Database.closeSQLConnection(c);
 		}
 
 	}
@@ -83,17 +76,10 @@ public class UserServices {
 
 			String message = "the account of the user " + key + " has been successfully deleted";
 			return ErrorJSON.serviceAccepted("message", message);
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-			return ErrorJSON.serviceRefused("DataBase error", DBStatic.sql_error);
+		} catch (Exception e) {
+			return ErrorJSON.exceptionHandler(e);
 		} finally {
-			try {
-				c.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return ErrorJSON.serviceRefused("DataBase error", DBStatic.sql_error);
-
-			}
+			Database.closeSQLConnection(c);
 		}
 	}
 
@@ -116,16 +102,10 @@ public class UserServices {
 				return ErrorJSON.serviceRefused("the user doesn't exist", DBStatic.not_in_db_error);
 			int id = UserTools.getUserId(login, c);
 			userInfo = UserTools.getUser(id, c);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("DataBase error", DBStatic.sql_error);
+		} catch (Exception e) {
+			return ErrorJSON.exceptionHandler(e);
 		} finally {
-			try {
-				c.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return ErrorJSON.serviceRefused("DataBase error", DBStatic.sql_error);
-			}
+			Database.closeSQLConnection(c);
 		}
 
 		return ErrorJSON.serviceAccepted("user", userInfo);
@@ -180,16 +160,10 @@ public class UserServices {
 			}
 			
 			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("DataBase error", DBStatic.sql_error);
+		} catch (Exception e) {
+			return ErrorJSON.exceptionHandler(e);
 		} finally {
-			try {
-				c.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return ErrorJSON.serviceRefused("DataBase error", DBStatic.sql_error);
-			}
+			Database.closeSQLConnection(c);
 		}
 
 		return ErrorJSON.serviceAccepted("user blocked", loginBlockUser);
@@ -211,17 +185,10 @@ public class UserServices {
 			c = Database.getMySQLConnection();
 			users = UserTools.getUserList(c);
 			return ErrorJSON.serviceAccepted("user list", users);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("DataBase error", DBStatic.sql_error);
+		} catch (Exception e) {
+			return ErrorJSON.exceptionHandler(e);
 		} finally {
-			try {
-				c.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return ErrorJSON.serviceRefused("DataBase error", DBStatic.sql_error);
-
-			}
+			Database.closeSQLConnection(c);
 		}
 
 	}
@@ -249,17 +216,10 @@ public class UserServices {
 			//}
 			
 			return ErrorJSON.serviceAccepted("user list", users);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("DataBase error", DBStatic.sql_error);
+		} catch (Exception e) {
+			return ErrorJSON.exceptionHandler(e);
 		} finally {
-			try {
-				c.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return ErrorJSON.serviceRefused("DataBase error", DBStatic.sql_error);
-
-			}
+			Database.closeSQLConnection(c);
 		}
 
 	}

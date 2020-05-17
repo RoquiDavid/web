@@ -93,22 +93,10 @@ public class MessageServices {
 			String message = MessageTools.getMessage(message_id, coll);
 			//Retour du service accepté
 			return ErrorJSON.serviceAccepted("L'utilisateur "+user+" post le message: ",  mid + " : " + message);
-		} catch (JSONException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("json error : \n" + e.getMessage(), 100);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("sql error : \n" + e.getMessage(), 1000);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("not found \n" + e.getMessage(), 24);
+		} catch(Exception e) {
+			return ErrorJSON.exceptionHandler(e);
 		} finally {
-			try {
-				c.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return ErrorJSON.serviceRefused("sql error : \n" + e.getMessage(), 1000);
-			}
+			Database.closeSQLConnection(c);
 		}
 	}
 	
@@ -152,22 +140,10 @@ public class MessageServices {
 			boolean message = MessageTools.existMessage(message_id, coll);
 
 			return ErrorJSON.serviceAccepted("message", "message " + mid + " : " + message);
-		} catch (JSONException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("json error : \n" + e.getMessage(), 100);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("sql error : \n" + e.getMessage(), 1000);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("not found \n" + e.getMessage(), 24);
+		} catch(Exception e) {
+			return ErrorJSON.exceptionHandler(e);
 		} finally {
-			try {
-				c.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return ErrorJSON.serviceRefused("sql error : \n" + e.getMessage(), 1000);
-			}
+			Database.closeSQLConnection(c);
 		}
 	}
 	
@@ -214,26 +190,14 @@ public class MessageServices {
 			mid = MessageTools.createMessage(author_id,author_login, content, coll);
 
 
+			return ErrorJSON.serviceAccepted("mid", mid);
 		
-		} catch (JSONException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("json error : \n" + e.getMessage(), 100);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("sql error : \n" + e.getMessage(), 1000);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("not found \n" + e.getMessage(), 24);
+		} catch(Exception e) {
+			return ErrorJSON.exceptionHandler(e);
 		} finally {
-			try {
-				c.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return ErrorJSON.serviceRefused("sql error : \n" + e.getMessage(), 1000);
-			}
+			Database.closeSQLConnection(c);
 		}
 	
-		return ErrorJSON.serviceAccepted("mid", mid);
 	}
 	
 	
@@ -286,26 +250,14 @@ public class MessageServices {
 			}
 			
 
+			return ErrorJSON.serviceAccepted("message", "message " + mid + " : " + content);
 		
-		} catch (JSONException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("json error : \n" + e.getMessage(), 100);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("sql error : \n" + e.getMessage(), 1000);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("not found \n" + e.getMessage(), 24);
+		} catch(Exception e) {
+			return ErrorJSON.exceptionHandler(e);
 		} finally {
-			try {
-				c.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return ErrorJSON.serviceRefused("sql error : \n" + e.getMessage(), 1000);
-			}
+			Database.closeSQLConnection(c);
 		}
 	
-		return ErrorJSON.serviceAccepted("message", "message " + mid + " : " + content);
 	}
 
 	
@@ -345,25 +297,13 @@ public class MessageServices {
 			if(MessageTools.verif(message_id, idUser,coll)) {
 				MessageTools.deleteMessage(message_id, coll);
 			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("json error : \n" + e.getMessage(), 100);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("sql error : \n" + e.getMessage(), 1000);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("not found \n" + e.getMessage(), 24);
+			return ErrorJSON.serviceAccepted("message", "message " + mid);
+		} catch(Exception e) {
+			return ErrorJSON.exceptionHandler(e);
 		} finally {
-			try {
-				c.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return ErrorJSON.serviceRefused("sql error : \n" + e.getMessage(), 1000);
-			}
+			Database.closeSQLConnection(c);
 		}
 	
-		return ErrorJSON.serviceAccepted("message", "message " + mid);
 	}
 	
 	
@@ -422,26 +362,14 @@ public class MessageServices {
 			}
 			
 
+			return ErrorJSON.serviceAccepted("message", "message " + mid + " : liked ");
 		
-		} catch (JSONException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("json error : \n" + e.getMessage(), 100);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("sql error : \n" + e.getMessage(), 1000);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("not found \n" + e.getMessage(), 24);
+		} catch(Exception e) {
+			return ErrorJSON.exceptionHandler(e);
 		} finally {
-			try {
-				c.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return ErrorJSON.serviceRefused("sql error : \n" + e.getMessage(), 1000);
-			}
+			Database.closeSQLConnection(c);
 		}
 	
-		return ErrorJSON.serviceAccepted("message", "message " + mid + " : liked ");
 	}
 	
 	/**
@@ -512,22 +440,10 @@ public class MessageServices {
 			System.out.println("test return array id like "+MessageTools.getIdLike(message_id, coll));
 			
 			return ErrorJSON.serviceAccepted("message", "message " + mid + " : " + message+" Like :"+ like+" User id: "+idLike+" \n\n  stats: "+ statsLikes);
-		} catch (JSONException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("json error : \n" + e.getMessage(), 100);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("sql error : \n" + e.getMessage(), 1000);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("not found \n" + e.getMessage(), 24);
+		} catch(Exception e) {
+			return ErrorJSON.exceptionHandler(e);
 		} finally {
-			try {
-				c.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return ErrorJSON.serviceRefused("sql error : \n" + e.getMessage(), 1000);
-			}
+			Database.closeSQLConnection(c);
 		}
 	}	
 	

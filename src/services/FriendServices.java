@@ -48,19 +48,10 @@ public class FriendServices {
 			JSONArray friends = FriendTools.getFriendList(id);
 
 			return ErrorJSON.serviceAccepted("friend list", friends);
-		} catch (JSONException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("json error : \n" + e.getMessage(), DBStatic.json_error);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("sql error : \n" + e.getMessage(), DBStatic.sql_error);
+		} catch (Exception e) {
+			return ErrorJSON.exceptionHandler(e);
 		} finally {
-			try {
-				c.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return ErrorJSON.serviceRefused("sql error : \n" + e.getMessage(), DBStatic.sql_error);
-			}
+			Database.closeSQLConnection(c);
 		}
 	}
 
@@ -93,19 +84,10 @@ public class FriendServices {
 
 			String message = "friend added";
 			return ErrorJSON.serviceAccepted("message", message);
-		} catch (JSONException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("json error : \n" + e.getMessage(), DBStatic.json_error);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("sql error : \n" + e.getMessage(), DBStatic.sql_error);
+		} catch (Exception e) {
+			return ErrorJSON.exceptionHandler(e);
 		} finally {
-			try {
-				c.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return ErrorJSON.serviceRefused("sql error : \n" + e.getMessage(), DBStatic.sql_error);
-			}
+			Database.closeSQLConnection(c);
 		}
 	}
 
@@ -138,19 +120,10 @@ public class FriendServices {
 
 			String message = "friend removed";
 			return ErrorJSON.serviceAccepted("message", message);
-		} catch (JSONException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("json error : \n" + e.getMessage(), DBStatic.json_error);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return ErrorJSON.serviceRefused("sql error : \n" + e.getMessage(), DBStatic.sql_error);
+		} catch (Exception e) {
+			return ErrorJSON.exceptionHandler(e);
 		} finally {
-			try {
-				c.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return ErrorJSON.serviceRefused("sql error : \n" + e.getMessage(), DBStatic.sql_error);
-			}
+			Database.closeSQLConnection(c);
 		}
 	}
 

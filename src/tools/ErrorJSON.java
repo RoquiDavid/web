@@ -1,5 +1,7 @@
 package tools;
 
+import java.sql.SQLException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -60,6 +62,17 @@ public class ErrorJSON {
 		} catch (JSONException e) {
 			e.printStackTrace();
 			json = serviceRefused(e.getMessage(), DBStatic.json_error);
+		}
+	}
+	
+	public static JSONObject exceptionHandler(Exception e) throws JSONException {
+		JSONObject output = null;
+		if(e instanceof SQLException) {
+			return ErrorJSON.serviceRefused("SQL exception", DBStatic.sql_error);
+		} else if (e instanceof JSONException) {
+			return ErrorJSON.serviceRefused("JSON exceptiobn", DBStatic.json_error);
+		} else {
+			return ErrorJSON.serviceRefused("JAVA exception", DBStatic.java_error);
 		}
 	}
 }

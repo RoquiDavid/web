@@ -7,9 +7,13 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.json.JSONException;
+
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
+
+import tools.ErrorJSON;
 
 
 
@@ -62,6 +66,14 @@ public class Database {
 	public static MongoDatabase getMongoDBConnection()  {
 		MongoClient mongo = (MongoClient) MongoClients.create();
 		return mongo.getDatabase(DBStatic.mongo_bd);
+	}
+	
+	public static void closeSQLConnection(Connection c) throws JSONException {
+		try {
+			c.close();
+		} catch (SQLException e) {
+			ErrorJSON.exceptionHandler(e);
+		}
 	}
 
 }

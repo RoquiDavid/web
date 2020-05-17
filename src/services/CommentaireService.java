@@ -52,23 +52,16 @@ public class CommentaireService {
 			
 			ArrayList<String> commentsId = CommentaireTools.getCommentList(message_id, coll);
 			
-			json = ErrorJSON.serviceAccepted("commentsId", commentsId);			
+			return ErrorJSON.serviceAccepted("commentsId", commentsId);			
 			
 			
-		} catch(SQLException e) {
-			return ErrorJSON.serviceRefused(e.getMessage(), DBStatic.sql_error);
-		} catch(JSONException e) {
-			return ErrorJSON.serviceRefused(e.getMessage(), DBStatic.json_error);
+		} catch (Exception e) {
+			return ErrorJSON.exceptionHandler(e);
 		} finally {
-			try {
-				c.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return ErrorJSON.serviceRefused(e.getMessage(), DBStatic.sql_error);
-			}
+			Database.closeSQLConnection(c);
 		}
 		
-		return json;
+		
 	}
 	
 	
@@ -117,22 +110,14 @@ public class CommentaireService {
 			ErrorJSON.addToJSON("author_login", doc.getString("author_login"), json);
 			ErrorJSON.addToJSON("text", doc.getString("text"), json);
 			ErrorJSON.addToJSON("date", doc.get("date"), json);
+			return json;
 			
-			
-		} catch(SQLException e) {
-			return ErrorJSON.serviceRefused(e.getMessage(), DBStatic.sql_error);
-		} catch(JSONException e) {
-			return ErrorJSON.serviceRefused(e.getMessage(), DBStatic.json_error);
+		} catch(Exception e) {
+			return ErrorJSON.exceptionHandler(e);
 		} finally {
-			try {
-				c.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return ErrorJSON.serviceRefused(e.getMessage(), DBStatic.sql_error);
-			}
+			Database.closeSQLConnection(c);
 		}
 		
-		return json;
 	}
 	
 
@@ -174,22 +159,15 @@ public class CommentaireService {
 			}
 			
 			c_id = CommentaireTools.createCommentaire(message_id,author_id, author_login, comment, coll);
-			json = ErrorJSON.serviceAccepted("c_id", c_id);
+			return ErrorJSON.serviceAccepted("c_id", c_id);
 			
-		} catch(SQLException e) {
-			return ErrorJSON.serviceRefused(e.getMessage(), DBStatic.sql_error);
-		} catch(JSONException e) {
-			return ErrorJSON.serviceRefused(e.getMessage(), DBStatic.json_error);
+		} catch(Exception e) {
+			return ErrorJSON.exceptionHandler(e);
 		} finally {
-			try {
-				c.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return ErrorJSON.serviceRefused(e.getMessage(), DBStatic.sql_error);
-			}
+			Database.closeSQLConnection(c);
 		}
 		
-		return json;
+		
 	}
 
 
@@ -233,21 +211,14 @@ public class CommentaireService {
 			if(CommentaireTools.getCommentaire(message_id, c_id, coll).getInteger("author_id") != author_id)
 				return ErrorJSON.serviceRefused("permission denied", DBStatic.permission_error);
 			CommentaireTools.deleteCommentaire(message_id, c_id, coll);
+			return ErrorJSON.serviceAccepted("c_id", c_id);
 			
-		} catch(SQLException e) {
-			return ErrorJSON.serviceRefused(e.getMessage(), DBStatic.sql_error);
-		} catch(JSONException e) {
-			return ErrorJSON.serviceRefused(e.getMessage(), DBStatic.json_error);
+		} catch(Exception e) {
+			return ErrorJSON.exceptionHandler(e);
 		} finally {
-			try {
-				c.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return ErrorJSON.serviceRefused(e.getMessage(), DBStatic.sql_error);
-			}
+			Database.closeSQLConnection(c);
 		}
 		
-		return ErrorJSON.serviceAccepted("c_id", c_id);
 	}
 
 
@@ -261,7 +232,7 @@ public class CommentaireService {
 	 */
 	public static JSONObject modifyCommentaire(String key, String m_id, String c_id, String new_comment) throws JSONException {
 		Connection c  = null;
-		JSONObject json = null;
+	
 		try {
 			c = Database.getMySQLConnection();
 			MongoDatabase db = Database.getMongoDBConnection();
@@ -294,21 +265,14 @@ public class CommentaireService {
 				return ErrorJSON.serviceRefused("permission denied", DBStatic.permission_error);
 			
 			CommentaireTools.modifyCommentaire(message_id, c_id, coll, new_comment);
-			
-		} catch(SQLException e) {
-			return ErrorJSON.serviceRefused(e.getMessage(), DBStatic.sql_error);
-		} catch(JSONException e) {
-			return ErrorJSON.serviceRefused(e.getMessage(), DBStatic.json_error);
+			return ErrorJSON.serviceAccepted("message", "The commentary " + c_id +" of the message " + m_id  +"has been modified" );
+		} catch(Exception e) {
+			return ErrorJSON.exceptionHandler(e);
 		} finally {
-			try {
-				c.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return ErrorJSON.serviceRefused(e.getMessage(), DBStatic.sql_error);
-			}
+			Database.closeSQLConnection(c);
 		}
 		
-		return json;
+		
 	}
 
 

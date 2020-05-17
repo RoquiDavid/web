@@ -43,17 +43,10 @@ public class AuthentificationServices {
 			
 			return ErrorJSON.serviceAccepted("key", key);
 			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			JSONObject errorSQL = ErrorJSON.serviceRefused("Database error : \n" + e.getMessage(), DBStatic.sql_error);
-			return errorSQL;
+		} catch (Exception e) {
+			return ErrorJSON.exceptionHandler(e);
 		} finally {
-			try {
-				c.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				ErrorJSON.serviceRefused("Database error : \n" + e.getMessage(), DBStatic.sql_error);
-			}
+			Database.closeSQLConnection(c);
 		}
 		
 	}
@@ -78,19 +71,11 @@ public class AuthentificationServices {
 			String message = "The user is deconnected";
 			
 			return ErrorJSON.serviceAccepted("message", message);
-		} catch(SQLException e) {
-			e.printStackTrace();
-			JSONObject errorSQL = ErrorJSON.serviceRefused("Database error : \n" + e.getMessage(), DBStatic.sql_error);
-			return errorSQL;
+		} catch (Exception e) {
+			return ErrorJSON.exceptionHandler(e);
 		} finally {
-			try {
-				c.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				JSONObject errorSQL = ErrorJSON.serviceRefused("Database error : \n" + e.getMessage(), DBStatic.sql_error);
-				return errorSQL;
-			}
-			
+			Database.closeSQLConnection(c);
+		
 		}
 		
 	}
