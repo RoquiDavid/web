@@ -1,7 +1,6 @@
 package services;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,10 +41,10 @@ public class FriendServices {
 				return ErrorJSON.serviceRefused("you have been disconnected, key too old", DBStatic.outdatedkey_error);			
 			}
 			
-			AuthentificationTools.updateSession(key);
+			AuthentificationTools.updateSession(key,c);
 			
 			int id = UserTools.getUserIdFromKey(key, c);
-			JSONArray friends = FriendTools.getFriendList(id);
+			JSONArray friends = FriendTools.getFriendList(id,c);
 
 			return ErrorJSON.serviceAccepted("friend list", friends);
 		} catch (Exception e) {
@@ -80,7 +79,7 @@ public class FriendServices {
 				return ErrorJSON.serviceRefused("key doesn't exist", DBStatic.not_in_db_error);
 			int myid = UserTools.getUserIdFromKey(key, c);
 			int friendid = UserTools.getUserId(friendlogin, c);
-			FriendTools.addFriend(myid, friendid);
+			FriendTools.addFriend(myid, friendid,c);
 
 			String message = "friend added";
 			return ErrorJSON.serviceAccepted("message", message);

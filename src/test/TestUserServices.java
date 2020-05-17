@@ -39,12 +39,6 @@ public class TestUserServices {
 			System.out.println("L'utilisateur supprime son compte");
 			System.out.println(UserServices.deleteUser(o.getString("key")));
 			
-			
-		
-			
-			
-			
-
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

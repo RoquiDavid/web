@@ -14,7 +14,7 @@ import com.mongodb.client.MongoCursor;
 public class CommentaireTools {
 
 	/**
-	 * 
+	 * insert a new message in the database with the specified data through the specified mongo collection
 	 * @param m_id the id of the message in the collection
 	 * @param comment the comment we want to create
 	 * @param coll the collection the message is in
@@ -60,11 +60,11 @@ public class CommentaireTools {
 	}
 
 	/**
-	 * 
-	 * @param message_id
-	 * @param c_id
-	 * @param coll
-	 * @return
+	 * Returns true if the specified commentary of the specified message exists in the database paired with the specified collection
+	 * @param message_id the message id 
+	 * @param c_id the commentary id
+	 * @param coll the mongo collection
+	 * @return true if the specified commentary of the specified message exists in the database paired with the specified collection
 	 */
 	@SuppressWarnings("unchecked")
 	public static boolean existCommentaire(ObjectId message_id, String c_id, MongoCollection<Document> coll) {
@@ -85,11 +85,12 @@ public class CommentaireTools {
 	}
 
 	/**
-	 * 
-	 * @param message_id
-	 * @param c_id
-	 * @param coll
-	 * @param new_comment
+	 * Update the content of the specified commentary of the specified message with the specified new comment through
+	 * the database paired with the specified collection
+	 * @param message_id the message id
+	 * @param c_id the commentary id
+	 * @param coll the mongo collection
+	 * @param new_comment the new contents of the commmentary
 	 */
 	@SuppressWarnings("unchecked")
 	public static void modifyCommentaire(ObjectId message_id, String c_id, MongoCollection<Document> coll, String new_comment) {
@@ -128,10 +129,11 @@ public class CommentaireTools {
 	}
 	
 	/**
-	 * 
-	 * @param message_id
-	 * @param c_id
-	 * @param coll
+	 * Delete the commentary with the specified c_id from the specified message message_id from the database 
+	 * paired with the specified collection
+	 * @param message_id the message id
+	 * @param c_id the commentary id
+	 * @param coll the mongo collection
 	 */
 	@SuppressWarnings("unchecked")
 	public static void deleteCommentaire(ObjectId message_id, String c_id, MongoCollection<Document> coll) {
@@ -170,11 +172,12 @@ public class CommentaireTools {
 
 	
 	/**
-	 * 
-	 * @param message_id
-	 * @param c_id
-	 * @param coll
-	 * @return
+	 * Retrieve the commentary with the specified c_id of the specified message from the database
+	 * paired with the specified collection
+	 * @param message_id the message id
+	 * @param c_id the commentary id
+	 * @param coll the mongo collection
+	 * @return a Document that contains the commentary
 	 */
 	@SuppressWarnings("unchecked")
 	public static Document getCommentaire(ObjectId message_id, String c_id, MongoCollection<Document> coll) {
@@ -208,10 +211,11 @@ public class CommentaireTools {
 	}
 
 	/**
-	 * 
-	 * @param message_id
-	 * @param coll
-	 * @return
+	 * Returns a Document that contains the id of all commentary of the specified message from the database
+	 * paired with the specified collection
+	 * @param message_id the message id
+	 * @param coll the mongo collection
+	 * @return a Document that contains the id of all commentary of the specified message
 	 */
 	@SuppressWarnings("unchecked")
 	public static ArrayList<String> getCommentList(ObjectId message_id, MongoCollection<Document> coll) {
@@ -244,12 +248,7 @@ public class CommentaireTools {
 	}
 
 	
-	public static void main(String[] args) {
-		Document doc = new Document();
-		doc.append("test", "test");
-		doc.append("test", "changed");
-		System.out.println(doc);
-	}
+
 	
 	
 	

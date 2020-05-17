@@ -56,6 +56,13 @@ public class ErrorJSON {
 		return retour;
 	}
 	
+	/**
+	 * Add to the specified JSON the specified couple (key, value)
+	 * @param key the key to insert
+	 * @param value the value paired with the key
+	 * @param json the json that will receive the couple
+	 * @throws JSONException
+	 */
 	public static void addToJSON(String key, Object value, JSONObject json) throws JSONException {
 		try {
 			json.put(key, value);
@@ -65,8 +72,14 @@ public class ErrorJSON {
 		}
 	}
 	
+	/**
+	 * Returns a different json according to the instance of the specified exception
+	 * @param e the exception
+	 * @return Returns a different json according to the instance of the specified exception
+	 * @throws JSONException
+	 */
 	public static JSONObject exceptionHandler(Exception e) throws JSONException {
-		JSONObject output = null;
+		
 		if(e instanceof SQLException) {
 			return ErrorJSON.serviceRefused("SQL exception", DBStatic.sql_error);
 		} else if (e instanceof JSONException) {

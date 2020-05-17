@@ -1,7 +1,6 @@
 package services;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -139,7 +138,7 @@ public class UserServices {
 				return ErrorJSON.serviceRefused("you have been disconnected, key too old", 6);			
 			}
 			
-			AuthentificationTools.updateSession(key);
+			AuthentificationTools.updateSession(key,c);
 			
 			
 			//Récupère le id des utilisateurs concernés
@@ -209,7 +208,7 @@ public class UserServices {
 				return ErrorJSON.serviceRefused("you have been disconnected, key too old", 6);			
 			}
 			
-			AuthentificationTools.updateSession(key);
+			AuthentificationTools.updateSession(key,c);
 			//boolean existUser = UserTools.existUser(login, c);
 			//if(existUser) {
 				users = UserTools.getBlockedUsers(idUser, c);

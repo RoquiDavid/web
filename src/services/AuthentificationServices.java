@@ -1,7 +1,6 @@
 package services;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,7 +36,6 @@ public class AuthentificationServices {
 				return ErrorJSON.serviceRefused("wrong password", DBStatic.check_error);
 			
 			int id_user = UserTools.getUserId(login, c);
-			
 			
 			key = AuthentificationTools.insertSession(id_user);
 			

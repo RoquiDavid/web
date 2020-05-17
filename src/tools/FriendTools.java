@@ -9,12 +9,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import bd.Database;
-
 public class FriendTools {
 	
-	public static void addFriend(int myid, int friendid) throws SQLException {
-		Connection c = Database.getMySQLConnection();
+	/**
+	 * Insert in the database using the specified connection the specified couple of id. This will create a friend relationship between
+	 * the users who own those id
+	 * @param myid the id of the current user
+	 * @param friendid the id of another user 
+	 * @param c the connection paired with a sql connection
+	 * @throws SQLException
+	 */
+	public static void addFriend(int myid, int friendid,Connection c) throws SQLException {
 
 		String query = "insert into friend values(?, ?);";
 		PreparedStatement pst = c.prepareStatement(query);
@@ -23,9 +28,16 @@ public class FriendTools {
 
 		pst.executeUpdate();
 		pst.close();
-		c.close();
 	}
 
+	/**
+	 * Delete in the database using the specified connection the specified couple of id. This will remove the relationship between
+	 * the users who own those id
+	 * @param myid the id of the current user
+	 * @param friendid the id of the other user which should be friend with the current user
+	 * @param c the connection paired with a sql connection
+	 * @throws SQLException
+	 */
 	public static void deleteFriend(int myid, int friendid, Connection c) throws SQLException {
 
 		String query = "delete from friend where id_2 = ? and id_1 = ?;";
@@ -38,11 +50,18 @@ public class FriendTools {
 		
 	}
 
-	public static JSONArray getFriendList(int id) throws SQLException, JSONException {
+	/**
+	 * Retrieve from the database the friend list of the user with the specified id
+	 * @param id the if of the current user 
+	 * @param c the connection paired with a sql connection
+	 * @return a JSONArray containing the friend list of the user
+	 * @throws SQLException
+	 * @throws JSONException
+	 */
+	public static JSONArray getFriendList(int id, Connection c) throws SQLException, JSONException {
 		// Get the friends of the user of the specified login
 		JSONArray userList = new JSONArray();
 		
-		Connection c = Database.getMySQLConnection();
 
 		String query = "select prenom, nom from user U where "
 				+ "exists(select * from friend F where F.id_1 = ? and U.id = F.id_2);";
@@ -57,17 +76,16 @@ public class FriendTools {
 
 		rs.close();
 		st.close();
-		c.close();
-
+		
 		return userList;
 		
 	}
 	
 
 	
-	public static boolean isYourFiend(int idUser, int idUserCheck) throws SQLException, JSONException {
+	public static boolean isYourFiend(int idUser, int idUserCheck, Connection c) throws SQLException, JSONException {
 		//On met la liste des amis dans un tableau
-		JSONArray friendList = getFriendList(idUserCheck);
+		JSONArray friendList = getFriendList(idUserCheck, c);
 		//On vérifie que l'utilisateur selectioner est dans la liste d'amis de l'autre utilisateur
 		for (int i = 0; i < friendList.length(); ++i) {
 		    JSONObject rec = friendList.getJSONObject(i);

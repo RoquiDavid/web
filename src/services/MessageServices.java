@@ -1,7 +1,6 @@
 package services;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.bson.Document;
@@ -71,7 +70,7 @@ public class MessageServices {
 			}
 			
 			//On met à jour la date d'activité de l'utilisateur
-			AuthentificationTools.updateSession(key);
+			AuthentificationTools.updateSession(key,c);
 			
 			boolean isBlocked = false;
 			int idUser = UserTools.getUserIdFromKey(key, c);
@@ -135,7 +134,7 @@ public class MessageServices {
 			if(!MessageTools.existMessage(message_id, coll))
 				return ErrorJSON.serviceRefused("not found", 25);
 			
-			AuthentificationTools.updateSession(key);
+			AuthentificationTools.updateSession(key,c);
 			
 			boolean message = MessageTools.existMessage(message_id, coll);
 
@@ -183,7 +182,7 @@ public class MessageServices {
 				return ErrorJSON.serviceRefused("you have been disconnected, key too old", 6);			
 			}
 			
-			AuthentificationTools.updateSession(key);
+			AuthentificationTools.updateSession(key,c);
 
 			int author_id = UserTools.getUserIdFromKey(key, c);
 			String author_login = UserTools.getUserLogin(author_id, c);
@@ -241,7 +240,7 @@ public class MessageServices {
 			if(content == null) {
 				MessageTools.deleteMessage(message_id, coll);
 			}
-			AuthentificationTools.updateSession(key);
+			AuthentificationTools.updateSession(key,c);
 			int idUser = UserTools.getUserIdFromKey(key, c);
 			System.out.println("message id update  "+message_id+ "    "+idUser);
 			if(MessageTools.verif(message_id,idUser,coll)) {
@@ -291,7 +290,7 @@ public class MessageServices {
 				return ErrorJSON.serviceRefused("you have been disconnected, key too old", 6);			
 			}
 			
-			AuthentificationTools.updateSession(key);
+			AuthentificationTools.updateSession(key,c);
 			ObjectId message_id = new ObjectId(mid);
 			int idUser = UserTools.getUserIdFromKey(key, c);
 			if(MessageTools.verif(message_id, idUser,coll)) {
@@ -341,7 +340,7 @@ public class MessageServices {
 			ObjectId message_id = new ObjectId(mid);
 			
 			
-			AuthentificationTools.updateSession(key);
+			AuthentificationTools.updateSession(key,c);
 			
 			boolean isBlocked = false;
 			ArrayList<Integer> blockedUsers = UserTools.getBlockedUsers(idUsercible, c);
@@ -414,7 +413,7 @@ public class MessageServices {
 				e.printStackTrace();
 			}
 
-			AuthentificationTools.updateSession(key);
+			AuthentificationTools.updateSession(key,c);
 			
 			boolean isBlocked = false;
 			//int idUserCible = MessageTools.getUserIdByMid(message_id, coll);

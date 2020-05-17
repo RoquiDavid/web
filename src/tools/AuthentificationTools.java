@@ -70,8 +70,7 @@ public class AuthentificationTools {
 		return key;
 	}
 	
-	public static void updateSession(String key) throws SQLException {
-		Connection c = Database.getMySQLConnection();
+	public static void updateSession(String key, Connection c) throws SQLException {
 		
 		//Stating the query
 		String query = "update session set time = now()  where key_session = ?";
@@ -82,7 +81,6 @@ public class AuthentificationTools {
 		pst.executeUpdate();
 		
 		pst.close();
-		c.close();
 	}
 
 	/**

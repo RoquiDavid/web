@@ -13,13 +13,11 @@ import org.json.JSONObject;
 
 public class UserTools {
 	/**
-	 * Returns true if the login exist in the database
-	 * 
-	 * @param login
-	 *            the login to check
-	 * @param c
+	 * Returns true if the login exist in the database provided by the connection
+	 * @param login the login of the user
+	 * @param c the connection linked to the database
 	 * @return true if the login exist in the database
-	 * @throws SQLException
+	 * @throws SQLException if the query isn't properly executed
 	 */
 	public static boolean existUser(String login, Connection c) throws SQLException {
 
@@ -38,16 +36,13 @@ public class UserTools {
 	}
 
 	/**
-	 * Insert in the database the login paired with the password of the user
-	 * 
-	 * @param login
-	 *            the login of the user
-	 * @param password
-	 *            the password of the user
-	 * @param prenom
-	 * @param nom
-	 * @param c
-	 * @throws SQLException
+	 * Insert the specified data in the database
+	 * @param login the login of the user
+	 * @param password the password of the user
+	 * @param nom the name of the user
+	 * @param prenom the surname of the user
+	 * @param c the connection linked to the database
+	 * @throws SQLException if the query isn't properly executed
 	 */
 	public static void insertUser(String login, String password, String nom, String prenom, Connection c)
 			throws SQLException {
@@ -66,13 +61,11 @@ public class UserTools {
 	}
 	
 	/**
-	 * Insert in the database the id of the blocked user
-	 * 
-	 * @param idCurrentUser
-	 *            the id of the user
-	 * @param idBlockUser
-	 *            the id of the blocked user
-	 * @throws SQLException
+	 * Insert in the database the couple of id specified
+	 * @param idCurrentUser the id of the user
+	 * @param idBlockUser the id of the blocked user
+	 * @param c the connection linked to the database
+	 * @throws SQLException if the query isn't properly executed
 	 */
 	public static void blockUser(int idCurrentUser, int idBlockUser, Connection c)throws SQLException {
 
@@ -85,16 +78,13 @@ public class UserTools {
 	}
 	
 	/**
-	 * Get the id of all blocked user by the current user
+	 * Get all user who were blacklisted by the current user
 	 * 
-	 * @param idCurrentUser
-	 *            the id of the user
-	 * @param idBlockUser
-	 *            the id of the blocked user
-	 * @throws SQLException
-	 * @throws JSONException 
+	 * @param idCurrentUser the id of the user       
+	 *            
+	 * @throws SQLException if the query isn't properly executed
 	 */
-	public static ArrayList<Integer> getBlockedUsers(int idCurrentUser, Connection c)throws SQLException, JSONException {
+	public static ArrayList<Integer> getBlockedUsers(int idCurrentUser, Connection c)throws SQLException {
 		
 		ArrayList<Integer> usersBlocked = new ArrayList<Integer>();
 		String query = "select idBlockedUser from block where idCurrentUser = ?;";
@@ -115,13 +105,12 @@ public class UserTools {
 	}
 
 	/**
-	 * Returns all information about the user who has the specified login
-	 * 
-	 * @param login
-	 *            the login of the user
-	 * @return all information about the user who has the specified login
-	 * @throws SQLException
-	 * @throws JSONException
+	 * Get the data of the specified user
+	 * @param id the id of the user
+	 * @param c the connection linked to the database
+	 * @return a JSONObject containing the name and the surname of the user
+	 * @throws SQLException if the query isn't properly executed
+	 * @throws JSONException 
 	 */
 	public static JSONArray getUser(int id, Connection c) throws SQLException, JSONException {
 
@@ -136,7 +125,7 @@ public class UserTools {
 		String nom = rs.getString("nom");
 		String prenom = rs.getString("prenom");
 		
-
+		
 		userInfo.put(new JSONObject().put("nom", nom).put("prenom", prenom));
 
 		rs.close();
@@ -176,10 +165,10 @@ public class UserTools {
 	/**
 	 * remove all data of the user with specified login in the database
 	 * 
-	 * @param id
-	 *            the id of the user
-	 * @param c
-	 * @throws SQLException
+	 * @param id the id of the user
+	 *            
+	 * @param c the connection linked to the database
+	 * @throws SQLException Something went wrong when query was executed
 	 */
 	public static void deleteUser(int id, Connection c) throws SQLException {
 
@@ -196,11 +185,11 @@ public class UserTools {
 	/**
 	 * Returns the id paired with the specified login
 	 * 
-	 * @param login
-	 *            the login of the user
-	 * @param c
+	 * @param login the login of the user
+	 *            
+	 * @param c the connection paired with the database
 	 * @return the id paired with the specified login
-	 * @throws SQLException
+	 * @throws SQLException if something went wrong when the query was executed
 	 */
 	public static int getUserId(String login, Connection c) throws SQLException {
 
@@ -221,6 +210,13 @@ public class UserTools {
 
 	}
 
+	/**
+	 * Get the id of the user using the key session and the database paired with the connection
+	 * @param key the key session of the suer
+	 * @param c the connection paired with the connection
+	 * @return the id of the user who own the key 
+	 * @throws SQLException if the specified arguments are wrong 
+	 */
 	public static int getUserIdFromKey(String key, Connection c) throws SQLException {
 
 		String query = "select id_user from session where key_session = ?";
@@ -237,6 +233,13 @@ public class UserTools {
 		return id;
 	}
 
+	/**
+	 * Check if the key session is still valid
+	 * @param key the key session of the user
+	 * @param c the connection paired with the database
+	 * @return true if the last time the key session was used was under 30 minutes
+	 * @throws SQLException if the arguments are wrong
+	 */
 	public static boolean isValid(String key, Connection c) throws SQLException {
 
 
@@ -257,6 +260,13 @@ public class UserTools {
 	}
 
 
+	/**
+	 * Get the user login through the id of the user
+	 * @param author_id the id of the user
+	 * @param c the connection paired with the database
+	 * @return the login of the user
+	 * @throws SQLException if the arguments are wrong
+	 */
 	public static String getUserLogin(Integer author_id, Connection c) throws SQLException {
 		String query = "select login from user where id = ?";
 		PreparedStatement pst = c.prepareStatement(query);

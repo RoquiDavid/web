@@ -20,17 +20,13 @@ public class MessageTools{
 
 	
 	/**
-	 * Returns a String contain the message wanted
-
+	 * Returns a string that contains the message with the specified mid located in the specified collection
 	 * 
-	 * @param mid
-	 * 			  message id
-	 * @param coll    
-	 *            the mongo collection   
+	 * @param mid  message id
+	 * @param coll the mongo collection   
 	 * @return a String contain the message wanted
 	 *         
-	 * @throws JSONException
-	 *             that shouldn't happen
+	 * @throws JSONException that shouldn't happen
 	 */
 	public static String getMessage(ObjectId mid, MongoCollection<Document> coll) throws Exception{
 		Document doc = new Document();
@@ -48,17 +44,12 @@ public class MessageTools{
 	}
 	
 	/**
-	 * Returns a int contain the author of a specific message
-
+	 * Returns the id of the author of the message with the specified mid located in the specified collection
 	 * 
-	 * @param mid
-	 * 			  message id
-	 * @param coll    
-	 *            the mongo collection   
-	 * @return a int contain the author of a specific message
-	 *         
-	 * @throws JSONException
-	 *             that shouldn't happen
+	 * @param mid message id
+	 * @param coll the mongo collection   
+	 * @return Returns the id of the author of the message with the specified mid located in the specified collection
+	 * @throws JSONException that shouldn't happen
 	 */
 	public static int getMessageAuthor(ObjectId mid, MongoCollection<Document> coll) throws Exception{
 		Document doc = new Document();
@@ -75,31 +66,7 @@ public class MessageTools{
 		
 	}
 	
-	/**
-	 * Returns the int id of the author who post a specific message
-
-	 * 
-	 * @param mid
-	 * 			  message id
-	 * @param coll    
-	 *            the mongo collection   
-	 * @return the int id of the author who post a specific message
-	 *         
-	 * @throws JSONException
-	 *             that shouldn't happen
-	 */
-	public static int getUserIdByMid(ObjectId mid, MongoCollection<Document> coll) throws Exception {
-		Document doc = new Document();
-		doc.append("_id", mid);
-		MongoCursor<Document> cursor = coll.find(doc).iterator();
-		int idUser = 0;
-		if(cursor.hasNext()) {
-			idUser = cursor.next().getInteger("author_id");
-		} else {
-			throw new Exception();
-		}
-		return idUser;
-	}
+	
 	
 	/**
 	 * Returns a String that indicate if the message has been created or no
@@ -130,34 +97,23 @@ public class MessageTools{
 	}
 
 	/**
-	 * Returns nothing
-
-	 * 
-	 * @param message_id
-	 * 			  the id of the message
-	 * @param coll
-	 *            the mongo collection
-	 * @return nothing
-	 *         
-
+	 * Delete the message with the specified message_id located in the specified collection
+	 * @param message_id the id of the message
+	 * @param coll the collection paired with the mongo database
 	 */
 	public static void deleteMessage(ObjectId message_id, MongoCollection<Document> coll) {
 		Document doc = new Document();
 		doc.put("message_id", message_id);
 		coll.deleteOne(doc);
+		
 	}
 
 	/**
-	 * Returns a boolean that indicate if the message exists or no
-
-	 * 
-	 * @param message_id
-	 * 			  the id of the message
-	 * @param coll
-	 *            the mongo collection
+	 * Returns true if the message of the specified m
+	 * @param message_id the id of the message
+	 * @param coll the mongo collection
 	 * @return a boolean that indicate if the message exists or no
 	 *         
-
 	 */
 	public static boolean existMessage(ObjectId message_id,MongoCollection<Document> coll) {
 		Document doc = new Document("_id", message_id);
@@ -177,18 +133,14 @@ public class MessageTools{
 	}
 
 	/**
-	 * Returns a boolean that indicate if the message exists or no
-	 * 
-	 * @param message_id
-	 * 			  the id of the message
-	 * @param content
-	 * 			  the content of the message
-	 * @param coll
-	 *            the mongo collection
-	 * @return a boolean that indicate if the message exists or no
-	 *         
+	 * Returns the status of the message modification. The message modified is identified by the specified message_id, the new contents of the message
+	 * should be the specified content and the message is located in the specified mongo collection
+	 * @param message_id the message id
+	 * @param content the new content of the message
+	 * @param coll the mongo collection
+	 * @return the status of the message modification
 	 */
-	public static UpdateResult updateMessage(ObjectId message_id, String content, MongoCollection<Document> coll) throws Exception {
+	public static UpdateResult updateMessage(ObjectId message_id, String content, MongoCollection<Document> coll){
 		UpdateResult updateResult = null;
 		
 		Document doc = new Document("_id", message_id);
@@ -208,15 +160,10 @@ public class MessageTools{
 
 	/**
 	 * Returns update result who indicate the status of the updated id like user array
-	 * 
-	 * @param message_id
-	 * 			  the id of the message
-	 * @param idUser
-	 * 			  the id of the user
-	 * @param coll
-	 *            the mongo collection
+	 * @param message_id the id of the message
+	 * @param idUser the id of the user
+	 * @param coll the mongo collection
 	 * @return a update result who indicate the status of the updated like
-	 *         
 	 */
 	public static UpdateResult likeMessage(ObjectId message_id, int idUser, MongoCollection<Document> coll) throws Exception {
 		UpdateResult updateResult = null;
@@ -255,13 +202,9 @@ public class MessageTools{
 	
 	/**
 	 * Returns update result who indicate the status of the updated like
-	 * 
-	 * @param message_id
-	 * 			  the id of the message
-	 * @param idUser
-	 * 			  the id of the user
-	 * @param coll
-	 *            the mongo collection
+	 * @param message_id the id of the message
+	 * @param idUser the id of the user
+	 * @param coll the mongo collection
 	 * @return a update result who indicate the status of the updated like
 	 *         
 	 */
@@ -322,13 +265,9 @@ public class MessageTools{
 	
 	/**
 	 * Returns number of like of  specific message
-	 * 
-	 * @param message_id
-	 * 			  the id of the message
-	 * @param coll
-	 *            the mongo collection
-	 * @return  number of like of  specific message
-	 *         
+	 * @param message_id the id of the message
+	 * @param coll the mongo collection
+	 * @return number of like of specific message
 	 */
 	public static int getLike(ObjectId mid, MongoCollection<Document> coll) throws Exception {
 		Document doc = new Document();
@@ -344,19 +283,13 @@ public class MessageTools{
 	}
 	/**
 	 * Returns an object who contain the id array of user who has liked a specific message
-	 * 
-	 * @param message_id
-	 * 			  the id of the message
-	 * @param coll
-	 *            the mongo collection
+	 * @param message_id the id of the message
+	 * @param coll the mongo collection
 	 * @return an object who contain the id array of user who has liked a specific message
-	 *         
 	 */
 	public static  Object getIdLike(ObjectId message_id, MongoCollection<Document> coll) throws Exception {
 		Document doc = new Document();
 		doc.append("_id", message_id);
-		
-		
 		Object idUserArray = new ArrayList<Integer>();
 		MongoCursor<Document> cursor = coll.find(doc).iterator();
 		if(cursor.hasNext()) {
@@ -368,14 +301,10 @@ public class MessageTools{
 	}
 	
 	/**
-	 * Returns a String with some stats on a specific user
-	 * 
-	 * @param id_user
-	 * 			  the id of the current user
-	 * @param coll
-	 *            the mongo collection
-	 * @return a String with some stats on a specific user
-	 *         
+	 * Returns a chain of characters containing some statistics of the user with the specified id using the specified mongo collection
+	 * @param id_user the id of the current user
+	 * @param coll the mongo collection
+	 * @return Returns a chain of characters containing some statistics
 	 */
 	public static String percentAppreciationFriend(int idUser,MongoCollection<Document> coll) throws NumberFormatException, SQLException, JSONException {
 		Document doc = new Document();
@@ -428,7 +357,14 @@ public class MessageTools{
 	}
 		return stat;		
 	}
-	
+
+	/**
+	 * returns true if the specified message was created by the user with the specified idUser using the specified collection
+	 * @param message_id the id of the message
+	 * @param idUser the id of the user
+	 * @param coll the mongo collection
+	 * @return true if the specified message was created by the user with the specified idUser
+	 */
 public static boolean verif(ObjectId message_id,int idUser,MongoCollection<Document> coll) {
 		
 		try {
