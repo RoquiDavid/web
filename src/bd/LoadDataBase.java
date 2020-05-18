@@ -43,7 +43,7 @@ public class LoadDataBase {
 			+ "constraint fk_blockedUser foreign key (idBlockedUser) references user(id) on delete cascade);";
 	
 	private static String insertUserQuery = "insert into user(nom, prenom, login, password) values(?, ?, ?, ?);";
-
+	private static String insertSessionQuery = "insert into session(id_user, key_session, time) values (? , ?, now());";
 	public static void loadSQLDataBase() {
 		try {
 			
@@ -87,8 +87,20 @@ public class LoadDataBase {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			;
-
+			s.close();
+			// Inserting session
+			String[] keys = 
+				{"ABIUBSBSIUBZBIULDZBOIEDBY",
+					"NOINDVBUUIEFBOCVYUVF",
+					"NOIDUEMDPZNOIDBZFZJP",
+					"UYVOIBFOMINEMOINE"};
+			s = c.prepareStatement(insertSessionQuery);
+			for(int  i = 0 ; i < keys.length; i++) {
+				s.setString(1, String.valueOf(i + 1));
+				s.setString(2, keys[i]);
+				s.executeUpdate();
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

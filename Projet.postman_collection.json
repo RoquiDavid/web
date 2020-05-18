@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "40a6182a-4752-497c-a647-cafcbe809796",
+		"_postman_id": "c15ddd15-4fc9-4d22-a297-3200171346df",
 		"name": "Projet",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,27 +14,24 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://192.168.1.13:8080/web/authentification?login=Pilan12&password=251efzfe",
+							"raw": "http://localhost:8080/projetFinal/authentification?login=Celia121589&password=1234546",
 							"protocol": "http",
 							"host": [
-								"192",
-								"168",
-								"1",
-								"13"
+								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"web",
+								"projetFinal",
 								"authentification"
 							],
 							"query": [
 								{
 									"key": "login",
-									"value": "Pilan12"
+									"value": "Celia121589"
 								},
 								{
 									"key": "password",
-									"value": "251efzfe"
+									"value": "1234546"
 								}
 							]
 						}
@@ -47,13 +44,10 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://192.168.1.13:8080/projetFinal/authentification?key=3116KY4ORSFJAX0G38LHN4DZWBWKP4VR",
+							"raw": "http://localhost:8080/projetFinal/authentification?key=NOIDUEMDPZNOIDBZFZJP",
 							"protocol": "http",
 							"host": [
-								"192",
-								"168",
-								"1",
-								"13"
+								"localhost"
 							],
 							"port": "8080",
 							"path": [
@@ -63,7 +57,7 @@
 							"query": [
 								{
 									"key": "key",
-									"value": "3116KY4ORSFJAX0G38LHN4DZWBWKP4VR"
+									"value": "NOIDUEMDPZNOIDBZFZJP"
 								}
 							]
 						}
@@ -82,13 +76,10 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://192.168.1.13:8080/projetFinal/user?login=david&password=coucou&nom=david&prenom=roqui",
+							"raw": "http://localhost:8080/projetFinal/user?login=David125&password=admin&nom=Roqui&prenom=David",
 							"protocol": "http",
 							"host": [
-								"192",
-								"168",
-								"1",
-								"13"
+								"localhost"
 							],
 							"port": "8080",
 							"path": [
@@ -98,19 +89,19 @@
 							"query": [
 								{
 									"key": "login",
-									"value": "david"
+									"value": "David125"
 								},
 								{
 									"key": "password",
-									"value": "coucou"
+									"value": "admin"
 								},
 								{
 									"key": "nom",
-									"value": "david"
+									"value": "Roqui"
 								},
 								{
 									"key": "prenom",
-									"value": "roqui"
+									"value": "David"
 								}
 							]
 						}
@@ -123,7 +114,17 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8080/projetFinal/user/Pilan12",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projetFinal",
+								"user",
+								"Pilan12"
+							]
 						}
 					},
 					"response": []
@@ -134,13 +135,10 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://192.168.1.13:8080/projetFinal/user?login=Rishouba",
+							"raw": "http://localhost:8080/projetFinal/user?login=Pilan12&key=NOINDVBUUIEFBOCVYUVF",
 							"protocol": "http",
 							"host": [
-								"192",
-								"168",
-								"1",
-								"13"
+								"localhost"
 							],
 							"port": "8080",
 							"path": [
@@ -150,7 +148,11 @@
 							"query": [
 								{
 									"key": "login",
-									"value": "Rishouba"
+									"value": "Pilan12"
+								},
+								{
+									"key": "key",
+									"value": "NOINDVBUUIEFBOCVYUVF"
 								}
 							]
 						}
@@ -169,13 +171,10 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://192.168.1.13:8080/projetFinal/friend?key=XH1SXJB6G6CKO9JD6GWNVFAYK6LXM6X7&friendlogin=Rishouba",
+							"raw": "http://localhost:8080/projetFinal/friend?key=ABIUBSBSIUBZBIULDZBOIEDBY&friendlogin=Celia121589",
 							"protocol": "http",
 							"host": [
-								"192",
-								"168",
-								"1",
-								"13"
+								"localhost"
 							],
 							"port": "8080",
 							"path": [
@@ -185,11 +184,11 @@
 							"query": [
 								{
 									"key": "key",
-									"value": "XH1SXJB6G6CKO9JD6GWNVFAYK6LXM6X7"
+									"value": "ABIUBSBSIUBZBIULDZBOIEDBY"
 								},
 								{
 									"key": "friendlogin",
-									"value": "Rishouba"
+									"value": "Celia121589"
 								}
 							]
 						}
@@ -202,7 +201,22 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8080/projetFinal/friend?key=ABIUBSBSIUBZBIULDZBOIEDBY",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projetFinal",
+								"friend"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "ABIUBSBSIUBZBIULDZBOIEDBY"
+								}
+							]
 						}
 					},
 					"response": []
@@ -210,10 +224,29 @@
 				{
 					"name": "delFriend",
 					"request": {
-						"method": "GET",
+						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8080/projetFinal/friend?key=ABIUBSBSIUBZBIULDZBOIEDBY&friendlogin=Celia121589",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projetFinal",
+								"friend"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "ABIUBSBSIUBZBIULDZBOIEDBY"
+								},
+								{
+									"key": "friendlogin",
+									"value": "Celia121589"
+								}
+							]
 						}
 					},
 					"response": []

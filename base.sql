@@ -32,3 +32,9 @@ insert into user(nom, prenom, login, password) values
   ("SHIBATA","Touna","Kina511","1026rzsfgt"),
   ("OULIN","Tywin","Boulash","1045695"),
   ("RESTES","Celia","Celia121589","1234546");
+  
+insert into session(id_user, key_session, time) values 
+(1 , "ABIUBSBSIUBZBIULDZBOIEDBY", now()),
+(2, "NOINDVBUUIEFBOCVYUVF", now()),
+(3, "NOIDUEMDPZNOIDBZFZJP", now()),
+(4,"UYVOIBFOMINEMOINE", now());

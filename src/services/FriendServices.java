@@ -77,8 +77,11 @@ public class FriendServices {
 				return ErrorJSON.serviceRefused("the username selected doesn't exist", DBStatic.not_in_db_error);
 			if(!AuthentificationTools.existKey(key, c))
 				return ErrorJSON.serviceRefused("key doesn't exist", DBStatic.not_in_db_error);
+			
 			int myid = UserTools.getUserIdFromKey(key, c);
 			int friendid = UserTools.getUserId(friendlogin, c);
+			if(FriendTools.isYourFiend(myid, friendid, c))
+				return ErrorJSON.serviceRefused("already friend", DBStatic.already_in_db_error);
 			FriendTools.addFriend(myid, friendid,c);
 
 			String message = "friend added";
@@ -115,10 +118,11 @@ public class FriendServices {
 				return ErrorJSON.serviceRefused("key doesn't exist", DBStatic.not_in_db_error);
 			int myid = UserTools.getUserIdFromKey(key, c);
 			int friendid = UserTools.getUserId(friendlogin, c);
+			if(!FriendTools.isYourFiend(myid, friendid, c))
+				return ErrorJSON.serviceRefused("not friends", DBStatic.not_in_db_error);
 			FriendTools.deleteFriend(myid, friendid, c);
 
-			String message = "friend removed";
-			return ErrorJSON.serviceAccepted("message", message);
+			return ErrorJSON.serviceAccepted("message", "friend removed");
 		} catch (Exception e) {
 			return ErrorJSON.exceptionHandler(e);
 		} finally {
