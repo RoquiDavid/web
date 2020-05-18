@@ -1,0 +1,322 @@
+{
+	"info": {
+		"_postman_id": "40a6182a-4752-497c-a647-cafcbe809796",
+		"name": "Projet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentification",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.1.13:8080/web/authentification?login=Pilan12&password=251efzfe",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"13"
+							],
+							"port": "8080",
+							"path": [
+								"web",
+								"authentification"
+							],
+							"query": [
+								{
+									"key": "login",
+									"value": "Pilan12"
+								},
+								{
+									"key": "password",
+									"value": "251efzfe"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.1.13:8080/projetFinal/authentification?key=3116KY4ORSFJAX0G38LHN4DZWBWKP4VR",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"13"
+							],
+							"port": "8080",
+							"path": [
+								"projetFinal",
+								"authentification"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "3116KY4ORSFJAX0G38LHN4DZWBWKP4VR"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "CreateUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.1.13:8080/projetFinal/user?login=david&password=coucou&nom=david&prenom=roqui",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"13"
+							],
+							"port": "8080",
+							"path": [
+								"projetFinal",
+								"user"
+							],
+							"query": [
+								{
+									"key": "login",
+									"value": "david"
+								},
+								{
+									"key": "password",
+									"value": "coucou"
+								},
+								{
+									"key": "nom",
+									"value": "david"
+								},
+								{
+									"key": "prenom",
+									"value": "roqui"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteuser",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.1.13:8080/projetFinal/user?login=Rishouba",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"13"
+							],
+							"port": "8080",
+							"path": [
+								"projetFinal",
+								"user"
+							],
+							"query": [
+								{
+									"key": "login",
+									"value": "Rishouba"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Friend",
+			"item": [
+				{
+					"name": "addFriend",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.1.13:8080/projetFinal/friend?key=XH1SXJB6G6CKO9JD6GWNVFAYK6LXM6X7&friendlogin=Rishouba",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"13"
+							],
+							"port": "8080",
+							"path": [
+								"projetFinal",
+								"friend"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "XH1SXJB6G6CKO9JD6GWNVFAYK6LXM6X7"
+								},
+								{
+									"key": "friendlogin",
+									"value": "Rishouba"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getFriend",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delFriend",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Message",
+			"item": [
+				{
+					"name": "createMessage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.1.13:8080/projetFinal/message?key=XH1SXJB6G6CKO9JD6GWNVFAYK6LXM6X7&login=Pilan12&mid=&author_id=2&content=hello",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"13"
+							],
+							"port": "8080",
+							"path": [
+								"projetFinal",
+								"message"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "XH1SXJB6G6CKO9JD6GWNVFAYK6LXM6X7"
+								},
+								{
+									"key": "login",
+									"value": "Pilan12"
+								},
+								{
+									"key": "mid",
+									"value": ""
+								},
+								{
+									"key": "author_id",
+									"value": "2"
+								},
+								{
+									"key": "content",
+									"value": "hello"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "likeMessage5ec00679278f1a59ccb19639",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.1.13:8080/projetFinal/message?key=XH1SXJB6G6CKO9JD6GWNVFAYK6LXM6X7&login=Pilan12&mid=&author_id=2&content=hello",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"13"
+							],
+							"port": "8080",
+							"path": [
+								"projetFinal",
+								"message"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "XH1SXJB6G6CKO9JD6GWNVFAYK6LXM6X7"
+								},
+								{
+									"key": "login",
+									"value": "Pilan12"
+								},
+								{
+									"key": "mid",
+									"value": ""
+								},
+								{
+									"key": "author_id",
+									"value": "2"
+								},
+								{
+									"key": "content",
+									"value": "hello"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
