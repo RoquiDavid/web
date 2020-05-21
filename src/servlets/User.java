@@ -30,14 +30,18 @@ public class User extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			
-			JSONObject json;
+			JSONObject json = null;
 			String login = request.getPathInfo();
-			if(request.getPathInfo() == null) {
-				json = UserServices.getUserList();
-			} else {
-				json = UserServices.getUser(login.replaceAll("/", ""));
-			}
-			json.put("url", login);
+			
+				if(request.getPathInfo() == null) {
+					json = UserServices.getUserList();
+				} else {
+					
+					json = UserServices.getUser(login.replaceAll("/", ""));
+				}
+				
+			
+			
 			print(json, response);
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -58,11 +62,15 @@ public class User extends HttpServlet {
 		String password = request.getParameter("password");
 		String nom = request.getParameter("nom");
 		String prenom = request.getParameter("prenom");
-
+		String key = request.getParameter("key");
 		try {
-
+			JSONObject json = null;
+			if(key != null) {
+				 json = UserServices.blockUser(key, login);
+			} else {
+				 json = UserServices.createUser(login, password, nom, prenom);
+			}
 			
-			JSONObject json = UserServices.createUser(login, password, nom, prenom);
 			/* print the output in the response */
 			print(json, response);
 		} catch (JSONException e) {

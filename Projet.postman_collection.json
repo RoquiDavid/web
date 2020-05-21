@@ -158,6 +158,56 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "blockUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projetFinal/user?key=ABIUBSBSIUBZBIULDZBOIEDBY&login=Pilan12",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projetFinal",
+								"user"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "ABIUBSBSIUBZBIULDZBOIEDBY"
+								},
+								{
+									"key": "login",
+									"value": "Pilan12"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUser list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projetFinal/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projetFinal",
+								"user"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -167,6 +217,18 @@
 			"item": [
 				{
 					"name": "addFriend",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "56c4ae1f-db76-4b32-b2de-81832af10edb",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -263,13 +325,10 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://192.168.1.13:8080/projetFinal/message?key=XH1SXJB6G6CKO9JD6GWNVFAYK6LXM6X7&login=Pilan12&mid=&author_id=2&content=hello",
+							"raw": "http://localhost:8080/projetFinal/message?key=ABIUBSBSIUBZBIULDZBOIEDBY&content=C'est un super message",
 							"protocol": "http",
 							"host": [
-								"192",
-								"168",
-								"1",
-								"13"
+								"localhost"
 							],
 							"port": "8080",
 							"path": [
@@ -279,23 +338,11 @@
 							"query": [
 								{
 									"key": "key",
-									"value": "XH1SXJB6G6CKO9JD6GWNVFAYK6LXM6X7"
-								},
-								{
-									"key": "login",
-									"value": "Pilan12"
-								},
-								{
-									"key": "mid",
-									"value": ""
-								},
-								{
-									"key": "author_id",
-									"value": "2"
+									"value": "ABIUBSBSIUBZBIULDZBOIEDBY"
 								},
 								{
 									"key": "content",
-									"value": "hello"
+									"value": "C'est un super message"
 								}
 							]
 						}
@@ -303,18 +350,15 @@
 					"response": []
 				},
 				{
-					"name": "likeMessage5ec00679278f1a59ccb19639",
+					"name": "getMessage",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://192.168.1.13:8080/projetFinal/message?key=XH1SXJB6G6CKO9JD6GWNVFAYK6LXM6X7&login=Pilan12&mid=&author_id=2&content=hello",
+							"raw": "http://localhost:8080/projetFinal/message?key=ABIUBSBSIUBZBIULDZBOIEDBY&mid=5ec64e73c6c0f362bfd88440&author_id=1",
 							"protocol": "http",
 							"host": [
-								"192",
-								"168",
-								"1",
-								"13"
+								"localhost"
 							],
 							"port": "8080",
 							"path": [
@@ -324,23 +368,264 @@
 							"query": [
 								{
 									"key": "key",
-									"value": "XH1SXJB6G6CKO9JD6GWNVFAYK6LXM6X7"
-								},
-								{
-									"key": "login",
-									"value": "Pilan12"
+									"value": "ABIUBSBSIUBZBIULDZBOIEDBY"
 								},
 								{
 									"key": "mid",
-									"value": ""
+									"value": "5ec64e73c6c0f362bfd88440"
 								},
 								{
 									"key": "author_id",
-									"value": "2"
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "like",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteMessage",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projetFinal/message?key=ABIUBSBSIUBZBIULDZBOIEDBY&mid=5ec64e73c6c0f362bfd88440",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projetFinal",
+								"message"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "ABIUBSBSIUBZBIULDZBOIEDBY"
+								},
+								{
+									"key": "mid",
+									"value": "5ec64e73c6c0f362bfd88440"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateMessage",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projetFinal/message?&&content=new content&key=ABIUBSBSIUBZBIULDZBOIEDBY&mid=5ec64e73c6c0f362bfd88440",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projetFinal",
+								"message"
+							],
+							"query": [
+								{
+									"key": null,
+									"value": null
+								},
+								{
+									"key": null,
+									"value": null
 								},
 								{
 									"key": "content",
-									"value": "hello"
+									"value": "new content"
+								},
+								{
+									"key": "key",
+									"value": "ABIUBSBSIUBZBIULDZBOIEDBY"
+								},
+								{
+									"key": "mid",
+									"value": "5ec64e73c6c0f362bfd88440"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "createComment",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f2b731a1-7318-4589-9175-868795117106",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projetFinal/commentaire?key=ABIUBSBSIUBZBIULDZBOIEDBY&m_id=5ec64e73c6c0f362bfd88440&comment=\"new comment\"",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projetFinal",
+								"commentaire"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "ABIUBSBSIUBZBIULDZBOIEDBY"
+								},
+								{
+									"key": "m_id",
+									"value": "5ec64e73c6c0f362bfd88440"
+								},
+								{
+									"key": "comment",
+									"value": "\"new comment\""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getComment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projetFinal/commentaire/ABIUBSBSIUBZBIULDZBOIEDBY-5ec64e73c6c0f362bfd88440-5ec659591e043b715a59d205",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projetFinal",
+								"commentaire",
+								"ABIUBSBSIUBZBIULDZBOIEDBY-5ec64e73c6c0f362bfd88440-5ec659591e043b715a59d205"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCommentList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projetFinal/commentaire/ABIUBSBSIUBZBIULDZBOIEDBY-5ec64e73c6c0f362bfd88440",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projetFinal",
+								"commentaire",
+								"ABIUBSBSIUBZBIULDZBOIEDBY-5ec64e73c6c0f362bfd88440"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteComment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projetFinal/commentaire?key=ABIUBSBSIUBZBIULDZBOIEDBY&m_id=5ec64e73c6c0f362bfd88440&c_id=5ec659591e043b715a59d205",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projetFinal",
+								"commentaire"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "ABIUBSBSIUBZBIULDZBOIEDBY"
+								},
+								{
+									"key": "m_id",
+									"value": "5ec64e73c6c0f362bfd88440"
+								},
+								{
+									"key": "c_id",
+									"value": "5ec659591e043b715a59d205"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateComment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projetFinal/commentaire?key=ABIUBSBSIUBZBIULDZBOIEDBY&m_id=5ec64e73c6c0f362bfd88440&c_id=5ec659591e043b715a59d205&new_comment=updated comment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projetFinal",
+								"commentaire"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "ABIUBSBSIUBZBIULDZBOIEDBY"
+								},
+								{
+									"key": "m_id",
+									"value": "5ec64e73c6c0f362bfd88440"
+								},
+								{
+									"key": "c_id",
+									"value": "5ec659591e043b715a59d205"
+								},
+								{
+									"key": "new_comment",
+									"value": "updated comment"
 								}
 							]
 						}

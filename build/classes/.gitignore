@@ -1,7 +1,8 @@
 /.metadata/
-/servlets/
+/.gitignore
 /.project
+/bd/
 /services/
+/servlets/
 /test/
 /tools/
-/bd/

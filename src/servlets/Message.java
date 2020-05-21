@@ -40,20 +40,22 @@ public class Message extends HttpServlet {
 				json.append("res", "null");
 				return;
 			} else {
-				json = MessageServices.getMessage(arrayUrl[0], arrayUrl[1], Integer.parseInt(arrayUrl[3]));
-				jsonLike = MessageServices.getLike(arrayUrl[0], arrayUrl[1],Integer.parseInt(arrayUrl[2]));
+				json = MessageServices.getMessage(arrayUrl[0], arrayUrl[1], Integer.parseInt(arrayUrl[2]));
+				//jsonLike = MessageServices.getLike(arrayUrl[0], arrayUrl[1],Integer.parseInt(arrayUrl[2]));
 			}
-			json.put("url", url);
-			print(json, response);
-			print(jsonLike,response);
+			//json.put("url", arrayUrl[2]);
+			//print(jsonLike,response);
 			
 
 			/* print the output in the response */
 			print(json, response);
 		} catch (JSONException e) {
 			e.printStackTrace();
+			
 		}
 	}
+	
+	
 	/**
 	 * createMessage
 	 */

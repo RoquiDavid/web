@@ -100,51 +100,7 @@ public class MessageServices {
 	}
 	
 	
-	/**
-	 * Returns a JSONObjec which indicate if a message exist
-
-	 * 
-	 * @param key
-	 *            the authentification key of the user
-	 * @param mid
-	 * 			  the id of the message 
-	 * @return a JSONObjec which indicate if a message exist
-	 *         
-	 * @throws JSONException
-	 *             that shouldn't happen
-	 */
-	public static JSONObject existMessage(String key, String mid) throws JSONException {
-		Connection c = null;
-		try {
-			c = Database.getMySQLConnection();
-			MongoDatabase db = Database.getMongoDBConnection();
-			MongoCollection<Document> coll = db.getCollection("message");
-			if (key == null || mid == null)
-				return ErrorJSON.serviceRefused("key or mid field empty", -1);
-
-			if(!AuthentificationTools.existKey(key,c))
-				return ErrorJSON.serviceRefused("the key doesn't exist", 12);
-			
-			if(!UserTools.isValid(key, c)) {
-				AuthentificationTools.removeSession(key, c);
-				return ErrorJSON.serviceRefused("you have been disconnected, key too old", 6);			
-			}
-			
-			ObjectId message_id = new ObjectId(mid);
-			if(!MessageTools.existMessage(message_id, coll))
-				return ErrorJSON.serviceRefused("not found", 25);
-			
-			AuthentificationTools.updateSession(key,c);
-			
-			boolean message = MessageTools.existMessage(message_id, coll);
-
-			return ErrorJSON.serviceAccepted("message", "message " + mid + " : " + message);
-		} catch(Exception e) {
-			return ErrorJSON.exceptionHandler(e);
-		} finally {
-			Database.closeSQLConnection(c);
-		}
-	}
+	
 	
 	
 	/**
